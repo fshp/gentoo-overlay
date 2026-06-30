@@ -5,7 +5,7 @@ EAPI=8
 
 ROCM_VERSION="6.3"
 
-inherit cmake cuda rocm linux-info
+inherit cmake cuda rocm linux-info flag-o-matic
 
 TINY_LLAMAS_COMMIT="99dd1a73db5a37100bd4ae633f4cfce6560e1567"
 
@@ -101,6 +101,8 @@ src_prepare() {
 }
 
 src_configure() {
+    append-cppflags -DNDEBUG
+
 	local mycmakeargs=(
 		-DLLAMA_BUILD_WEBUI=OFF
 		-DLLAMA_BUILD_TESTS=OFF
@@ -155,8 +157,6 @@ src_configure() {
 			-DGGML_HIP_ROCWMMA_FATTN=$(usex wmma)
 		)
 	fi
-
-	CMAKE_BUILD_TYPE=Release
 
 	cmake_src_configure
 }
