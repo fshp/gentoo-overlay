@@ -156,6 +156,8 @@ src_configure() {
 		)
 	fi
 
+	CMAKE_BUILD_TYPE=Release
+
 	cmake_src_configure
 }
 
